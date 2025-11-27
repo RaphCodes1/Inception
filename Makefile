@@ -2,6 +2,7 @@ all: inception
 
 inception:
 	sudo mkdir -p /home/${USER}/data/mariadb
+	sudo mkdir -p /home/${USER}/data/wordpress
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 
 clean:
