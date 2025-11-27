@@ -4,9 +4,11 @@ mkdir -p $CERT_DIR
 
 openssl req -x509 -newkey rsa:2048 -days 365 -nodes -keyout $CERT_KEY -out $CERT -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=$HOST_LOGIN/UID=$USER"
 
+chmod 644 $CERT_KEY
+chmod 644 $CERT
 
 echo "server {
-        listen 443 ssl http2;
+        listen 443 ssl;
         server_name $HOST_LOGIN;
 
         root $WP_ROUTE;
