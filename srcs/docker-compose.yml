@@ -1,0 +1,25 @@
+services:
+  mariadb:
+    build:
+      dockerfile: ./requirements/mariadb/Dockerfile
+    image: mariadb
+    container_name: mariadb
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - web
+    env_file:
+      - ./.env
+    expose:
+      - "3306"
+    restart: on-failure
+networks:
+  web:
+volumes:
+  mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/${USER}/data/mariadb'
