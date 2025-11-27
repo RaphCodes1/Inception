@@ -9,7 +9,7 @@ services:
     volumes:
       - wordpress:/var/www/html/wordpress
     ports:
-      - "443:433"
+      - "443:443"
     networks:
       - web
     depends_on:

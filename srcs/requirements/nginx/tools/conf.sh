@@ -7,28 +7,53 @@ openssl req -x509 -newkey rsa:2048 -days 365 -nodes -keyout $CERT_KEY -out $CERT
 chmod 644 $CERT_KEY
 chmod 644 $CERT
 
-echo "server {
-        listen 443 ssl;
-        server_name $HOST_LOGIN;
+# echo "server {
+#         listen 443 ssl;
+#         server_name $HOST_LOGIN;
 
-        root $WP_ROUTE;
-        index index.php index.html index.htm index.nginx-debian.html;
+#         root $WP_ROUTE;
+#         index index.php index.html index.htm index.nginx-debian.html;
 
-        ssl_protocols TLSv1.2 TLSv1.3;
-        ssl_certificate $CERT;
-        ssl_certificate_key $CERT_KEY;" > $NGINX_CONF;
+#         ssl_protocols TLSv1.2 TLSv1.3;
+#         ssl_certificate $CERT;
+#         ssl_certificate_key $CERT_KEY;" > $NGINX_CONF;
 
 
-echo '
-        location / {
-                try_files $uri $uri/ /index.php?$args =404;
-        }
+# echo '
+#         location / {
+#                 try_files $uri $uri/ /index.php?$args =404;
+#         }
 
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass wordpress:9000;
+#         location ~ \.php$ {
+#                 include snippets/fastcgi-php.conf;
+#                 fastcgi_pass wordpress:9000;
         
-        }
-}' >> $NGINX_CONF;
+#         }
+# }' >> $NGINX_CONF;
+
+# nginx -g "daemon off;"
+
+# Create nginx config
+cat > $NGINX_CONF << EOF
+server {
+    listen 443 ssl;
+    server_name $HOST_LOGIN;
+
+    root $WP_ROUTE;
+    index index.php index.html;
+
+    ssl_certificate $CERT;
+    ssl_certificate_key $CERT_KEY;
+
+    location / {
+        try_files \$uri \$uri/ /index.php?\$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass wordpress:9000;
+    }
+}
+EOF
 
 nginx -g "daemon off;"
