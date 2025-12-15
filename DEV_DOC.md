@@ -96,3 +96,34 @@ MariaDB: The host folder /home/[YOUR_LOGIN]/data/mariadb is mounted to /var/lib/
 WordPress: The host folder /home/[YOUR_LOGIN]/data/wordpress is mounted to /var/www/html inside the WordPress container.
 
 Note: Running make down does not delete this data. Running make fclean will delete these folders and reset the database/website.
+
+
+EXAMPLE OF THE .ENV
+#Host
+HOST_NAME=localhost
+HOST_LOGIN=[Your domain name format: login.42.fr]
+
+# Wordpress
+WP_ROUTE=/var/www/html/wordpress
+WP_ADMIN_EMAIL=[Email address for the WordPress Administrator]
+WP_ADMIN_USER=[Username for the WP Admin - MUST NOT contain 'admin' or 'administrator']
+WP_ADMIN_PASS=[Strong password for the WP Admin]
+WP_URL=[Your domain name format: login.42.fr]
+WP_USER=[Username for the second, non-admin WordPress user]
+WP_EMAIL=[Email address for the second user]
+WP_PASS=[Strong password for the second user]
+
+# Database
+DB_NAME=[Name of the database to create, e.g., wordpress]
+DB_USER=[Username for the database user that WordPress will use]
+DB_PASS=[Password for the database user]
+DB_HOST=mariadb
+DB_ROOT_PASS=[Strong password for the Database Root user]
+DB_CONF_ROUTE=/etc/mysql/my.cnf
+DB_INSTALL=/var/lib/mysql
+
+# Certificate
+CERT=/etc/nginx/ssl/cert.pem
+CERT_KEY=/etc/nginx/ssl/key.pem
+CERT_DIR=/etc/nginx/ssl
+NGINX_CONF=/etc/nginx/conf.d/default.conf
