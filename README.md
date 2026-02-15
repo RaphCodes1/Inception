@@ -77,3 +77,21 @@ This project utilizes a `docker-compose.yml` file located in the `srcs` folder t
 * **Concept Explanation:** AI was used to explain the difference between TLSv1.2 and TLSv1.3 configurations in NGINX.
 * **Script Debugging:** Used AI to troubleshoot syntax errors in the bash script used for the WordPress entrypoint.
 * **Documentation:** AI assisted in structuring this README file to ensure all mandatory sections were covered.
+
+## Project Description
+
+### Virtual Machines vs Docker
+* **Virtual Machines (VMs):** Emulate a complete hardware system, including a full OS kernel. They provide strong isolation but are resource-heavy and slow to boot.
+* **Docker:** Uses containerization to share the host system's kernel. Containers are lightweight, start almost instantly, and package the application with its dependencies, ensuring consistency across environments.
+
+### Secrets vs Environment Variables
+* **Environment Variables:** Useful for non-sensitive configuration (e.g., paths, domain names). However, they can be inspected via `docker inspect`, making them less secure for credentials.
+* **Secrets:** Docker Secrets are encrypted during transit and stored in a TMPFS within the container. They are intended for sensitive data like passwords and API keys, preventing accidental exposure in logs or git history.
+
+### Docker Network vs Host Network
+* **Host Network:** The container shares the host's networking namespace. It uses the host's IP and ports directly, offering no network isolation.
+* **Docker Network:** Creates a virtual bridge network (used in this project). Containers can communicate with each other via service names (DNS) while being isolated from the outside world, exposing only specific ports (e.g., 443).
+
+### Docker Volumes vs Bind Mounts
+* **Bind Mounts:** A file or directory on the host machine is mounted into a container. The user manages the file location (e.g., `/home/[login]/data` in this project).
+* **Docker Volumes:** Managed completely by Docker (usually in `/var/lib/docker/volumes`). They are easier to back up and migrate but harder to access directly from the host file system compared to bind mounts.
