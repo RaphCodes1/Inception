@@ -49,16 +49,5 @@ networks:
   web:
 volumes:
   wordpress:
-    name: wordpress
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/rcreer/data/wordpress'
   mariadb:
-    name: mariadb
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/rcreer/data/mariadb'
+
