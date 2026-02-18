@@ -11,9 +11,10 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 
 create_dirs:
-	@mkdir -p $(DATA_PATH)
-	@sudo chown -R $(USER):$(USER) $(DATA_PATH) 2>/dev/null || true
-	@mkdir -p $(DATA_PATH)/mariadb $(DATA_PATH)/wordpress
+	@sudo mkdir -p $(DATA_PATH)/mariadb
+	@sudo mkdir -p $(DATA_PATH)/wordpress
+	@sudo chmod 777 $(DATA_PATH)/mariadb
+	@sudo chmod 777 $(DATA_PATH)/wordpress
 
 inception: create_dirs
 	docker compose -f ./srcs/docker-compose.yml up --build -d
